@@ -1,21 +1,11 @@
 @charset "UTF-8";
-* {
-  margin: 0;
-  padding: 0;
-  outline: none;
+html, body{
+    height: 100%;
+    width: 100%;
 }
-html {
-  height: 100%;
-}
-
-body {
-  width: 100%;
-  height: 100%;
-  color: #333;
-  background: #f7f7f7;
-  font-size: 1em;
-  font-family: "Segoe UI", sans-serif;
-  line-height: 135%;
+*{
+    margin: 0px;
+    padding: 0px;
 }
 a:hover {
   color: rgb(255, 255, 255);
@@ -55,7 +45,10 @@ header,footer {
 header {
   padding: 1%;
   background-color: #4d7e29;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+}
+header #about {
+  margin-bottom: 20px; 
 }
 #page-wrap:after {
   content:"";
@@ -83,10 +76,6 @@ footer,#page-wrap:after {height: 10px}
   font-family: Courier New, monospace;
 
 }
-#map {
-  height:500px;
-  width: 100%;
-}
 /* Стили для footera*/
 #fotertext {
   font-family: Courier New, monospace;
@@ -100,15 +89,9 @@ footer,#page-wrap:after {height: 10px}
   width: 85%;
   border: 1px solid silver;
 }
-#wrapper {
+#page-wrap #map {
+  height: 500px;
   width: 100%;
-  height: 100%;
-  float: left;
-}
-#wrapper #map {
-  width: 100%;
-  height:700px;
-  float: left;
 }
 /*Стили для aboutProject*/
 #idea {
