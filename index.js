@@ -1,23 +1,40 @@
-var express = require("express");
+var express = require("express")
+var https = require("https")
+var fs = require("fs")
 var app = express();
+var dbHandler = require('./modules/mysqlHandler.js')
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+
+
+
 
 app.use(express.static('public'));
-
 var port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log("Listening on " + port);
-});
 
-
-const mysql = require('mysql');
-var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'qweqwe',
-    database : 'decontaminator'
+app.get('/getMarkers', function(req, res) {
+    dbHandler.getAllMarckers(function(items){
+     //   console.log(items)
+    res.send(items);
+    })
   });
 
-  var query = connection.query('SELECT * from Marker', function(err, result) {
-    console.log(err);
-    console.log(result);
-  });
+  app.post('/submitPlace', upload.single('imageFile'), function (req, res, next) {
+    // req.file - файл `imageFile`
+    // req.body сохранит текстовые поля, если они будут
+    console.log(req.file,req.body)
+    res.send({status: "200"})
+  })
+
+//make redirect from HTTP to HTTPS
+
+https.createServer({
+    key: fs.readFileSync('keys/server.key'),
+    cert: fs.readFileSync('keys/server.cert'),
+  
+}, app)
+.listen(port);
+
+
+
+
