@@ -106,3 +106,40 @@ footer {
   background: #4d7e29;
   min-height: 15px;
 }
+.menu {
+  background: rgb(173, 245, 206);
+  width: 20%;
+  min-height: 200px;
+  font-family:Courier New, monospace;
+  color: rgb(0, 0, 0);
+  border: 2px outset silver;
+  border-radius: 10px;
+  }
+  .menu p {
+  padding-top: 10px;
+  text-decoration: underline;
+  font-size: 1em;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  }
+  #up {
+  font-size: 1.2em
+  }
+
+  .menu-wraper{
+    position: fixed;
+    float: none;
+    left: 50%;
+    top: 10%;
+    background: beige;
+    width: 50%;
+    height: 100%;
+  }
+
+  #modal1 {
+ top:20% !important
+}
+
+.modal-form-row {
+  margin-bottom: 0px;
+}
