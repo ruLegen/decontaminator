@@ -46,7 +46,6 @@ header,footer {
 header {
   padding: 1%;
   background-color: #4d7e29;
-  margin-bottom: 5px;
 }
 header #about {
   margin-bottom: 20px; 

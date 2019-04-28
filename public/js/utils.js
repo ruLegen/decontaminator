@@ -26,6 +26,7 @@ function createUploadModal(onSubmit,onCancle){
 
 
 
+  
     wraper.appendChild(inputButton())
 
 
@@ -86,7 +87,7 @@ var btn = document.createElement("div")
 btn.className = "btn"
 
 var span = document.createElement("span")
-span.textContent="File"
+span.textContent="Фото"
 
 var imagesInput = document.createElement("input");
 imagesInput.setAttribute("type", "file")    
@@ -118,7 +119,7 @@ function createCard(id,title,description,rate,imgPath)
   <span id="rate-count" class="badge left" data-badge-caption="считают актуально">${rate}</span>
 
     <a href="#!" class=" waves-effect waves-green btn-flat" markerID=${id} onclick=voteFor(this)>Актуально</a>
-    <a href="#!" class="right waves-effect waves-green btn-flat"  markerID=${id} >Центр</a>
+    ${rate<2?"":`<a href="#!" class="right waves-effect waves-green btn-flat" onclick=makerReport(this) markerID=${id} >Создать жалобу</a>`}
 
   </div>
 </div>`
@@ -128,8 +129,6 @@ return card
 
 function voteFor(calee)
 {
-  
-
     var markerID = calee.getAttribute("markerID")
     var newFormObj  = new FormData();
     newFormObj.append('id', markerID);
@@ -167,4 +166,23 @@ function initFingerPrint() {
           window.localStorage.setItem("fingerprint",murmur)
       })
     },300) 
+}
+
+function makerReport(element){
+  var markerID = element.getAttribute("markerID")
+  var newFormObj  = new FormData();
+  newFormObj.append('id', markerID);
+
+ 
+  $.ajax({
+      url:'/createReport',
+      type:'post',
+      enctype: 'multipart/form-data',
+      processData: false,  // Important!
+      contentType: false,    
+      data: newFormObj  
+  }).done(function( data ) {
+    console.log(data)
+    window.open(data.url, '_blank');
+  });
 }

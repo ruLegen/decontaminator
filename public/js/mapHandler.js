@@ -44,8 +44,8 @@ function initMap() {
         icon: userMarkerIcon
       });
       userMarker.addListener("click",openSubmitWindow)
-
-    initMarkers(map)  
+      initMarkers(map)  
+    
 }
   
 
@@ -79,7 +79,7 @@ function initMarkers(map){
     }).done(function( data ) {
         data.map(function(item,index){
             var image = {
-                url:  "icons/trash.png",
+                url:  "icons/trash.svg",
                 scaledSize: new google.maps.Size(24, 24),
                 origin: new google.maps.Point(0,0),
                 anchor: new google.maps.Point(0, 0)
@@ -87,7 +87,9 @@ function initMarkers(map){
             var trashMarker = new google.maps.Marker({
                 position: {lat: item.lat, lng: item.lang},
                 map: map,
-                icon: image
+                icon: image,
+                fillColor:'#8dc63f',
+
               });
             trashMarker.set("id", item.id);
             trashMarker.addListener("click",trashClick)
@@ -116,6 +118,10 @@ function trashClick(event)
        var card = createCard(currentTrash.id,currentTrash.caption,currentTrash.description,currentTrash.rate, "img/"+currentTrash.imgPath)
        $("#card-container").html(card)
        var elems = document.querySelectorAll('.materialboxed');
+       if(currentTrash.rate > 2)
+       {
+         //activate button
+       }
        var instances = M.Materialbox.init(elems);
        M.Modal.init($(".modal"),)[0].open()
     });

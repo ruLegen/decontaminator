@@ -3,6 +3,8 @@ var https = require("https")
 var fs = require("fs")
 var app = express();
 var dbHandler = require('./modules/mysqlHandler.js')
+var reportCreator = require('./modules/reportGenerator.js')
+
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 
@@ -11,6 +13,8 @@ var upload = multer({ dest: 'uploads/' })
 
 app.use(express.static('public'));
 app.use('/img', express.static('uploads'));
+app.use('/reports', express.static('reports'));
+
 var port = process.env.PORT || 5000;
 
 app.get('/getMarkers', function(req, res) {
@@ -85,7 +89,19 @@ app.get('/getMarkers', function(req, res) {
   })
 //make redirect from HTTP to HTTPS
 
-
+app.post('/createReport', upload.none(), function (req, res, next) {
+  // req.file - файл `imageFile`
+  // req.body сохранит текстовые поля, если они будут
+  var id = req.body.id
+  dbHandler.getMarkerByID(id,function(data){
+    var marker = data[0]
+    var coords = `${marker.lat} С.Ш и ${marker.lang} В.Д в системе координат GPS`    
+    reportCreator.createReport(`report_${marker.id}`,coords,marker.imgPath,function(){
+      console.log("CREATED")
+      res.send({url:`/reports/report_${marker.id}.docx`})
+    })
+  })
+})
 
 
 https.createServer({
